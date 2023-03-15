@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React, { useState } from "react";
+import Dashboard from "./components/Dashboard";
+import ThemeContext from "./context/ThemeContext";
+import stockContext from "./context/StockContext";
+const App = () => {
+  const [darkMode, setDarkMode] = useState(true);
+  const [stockSymbol, setStockSymbol] = useState("MSFT");
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeContext.Provider value={{ darkMode, setDarkMode }}>
+      <stockContext.Provider value={{ stockSymbol, setStockSymbol }}>
+        <Dashboard />;
+      </stockContext.Provider>
+    </ThemeContext.Provider>
   );
-}
+};
 
 export default App;
+// npx tailwindcss -i ./src/input.css -o ./src/output.css --watch
+//npm start
